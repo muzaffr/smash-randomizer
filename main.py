@@ -1,34 +1,9 @@
 from random import choice
 
 class Player:
-    characters = [
-        "Dr. Mario",
-        "Mario",
-        "Luigi",
-        "Bowser",
-        "Peach",
-        "Yoshi",
-        "Donkey Kong",
-        "Captain Falcon",
-        "Ganondorf",
-        "Falco",
-        "Fox",
-        "Ness",
-        "Ice Climbers",
-        "Kirby",
-        "Samus",
-        "Zelda",
-        "Link",
-        "Young Link",
-        "Pichu",
-        "Pikachu",
-        "Jigglypuff",
-        "Mewtwo",
-        "Mr. Game & Watch",
-        "Marth",
-        "Roy",
-        "Sheik",
-    ]
+
+    with open('characters.txt') as f:
+        characters = [line.rstrip('\n') for line in f]
     freshness = 5
 
     def __init__(self, name):
@@ -39,9 +14,7 @@ class Player:
         return self.name
 
     def get_random(self):
-        pick = choice(self.characters)
-        while pick in self.queue:
-            pick = choice(self.characters)
+        pick = choice([x for x in self.characters if x not in self.queue])
         if len(self.queue) >= self.freshness:
             self.queue.pop(0)
         self.queue.append(pick)
@@ -60,9 +33,14 @@ def status(players, lobby):
         for player in lobby:
             print(player)
 
+
 def main():
+
     players = [None] * 4
     lobby = []
+    with open('stages.txt') as f:
+        stages = [line.rstrip('\n') for line in f]
+
     while True:
         command = list(input("\nmelee@smash:$ ").split())
         if len(command) == 1:
@@ -75,10 +53,12 @@ def main():
                             port+1, player.name, players[port].get_random()))
                     else:
                         print("P"+str(port+1))
+                print("\nStage: {}".format(choice(stages)))
             elif command[0] == "status":
                 status(players, lobby)
             elif command[0] in ("clear", "reset"):
                 players = [None] * 4
+                lobby = []
             elif command[0] in ("quit", "exit"):
                 print("Exiting...")
                 break

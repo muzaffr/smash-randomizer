@@ -2,7 +2,7 @@
 This tool helps you randomize characters for Super Smash Bros. Melee. It avoids stale characters.
 
 ## Quickstart
-Python is required to run this. Install Python and run via
+Python is required to run this. Install Python and run via:  
 `python main.py`
 
 ## Usage
