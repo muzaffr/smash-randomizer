@@ -1,8 +1,11 @@
 # Super Smash Bros. Randomizer
-This tool helps you randomize characters for Super Smash Bros. Melee. It avoids stale characters.
+This tool helps randomize characters for Super Smash Bros. Melee. It avoids stale characters.
+
+## Overview
+![Screenshot-1](https://user-images.githubusercontent.com/22426134/74130907-2e189100-4c09-11ea-94bb-ebf54bb9e6f7.png)
 
 ## Quickstart
-Python is required to run this. Install Python and run via:  
+Python3 is required to run this. Install Python and run via:  
 `python main.py`
 
 ## Usage
@@ -21,10 +24,10 @@ Ports are denoted by `P1`, `P2`, `P3` and `P4`. Waiting players are in a "lobby"
 
 ### Samples
 `join P1 Ryuu`  
-Ryuu joins at port 1.
+Ryuu joins at Port 1.
 
 `join P2 Muzz`  
-Muzz joins at port 2.
+Muzz joins at Port 2.
 
 `leave P4`  
 Port 4 leaves the game. (The player is moved to the lobby.)
