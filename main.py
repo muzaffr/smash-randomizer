@@ -1,4 +1,5 @@
 from random import choice
+from os import system
 
 class Player:
 
@@ -34,26 +35,38 @@ def status(players, lobby):
             print(player)
 
 
+def ansi_color(text, *attributes):
+    """
+    Formats/highlights text to be printed on the console as per the ANSI
+    coloring scheme.
+    """
+    return "\x1b[{}m{}\x1b[0m".format(";".join(map(str, attributes)), text)
+
+
 def main():
 
+    system("")
     players = [None] * 4
     lobby = []
     with open('stages.txt') as f:
         stages = [line.rstrip('\n') for line in f]
+    colors = [31, 34, 33, 32]
 
     while True:
-        command = list(input("\nmelee@smash:$ ").split())
+        command = list(input(ansi_color("\nmelee@smash:$ ", 1, 36)).split())
         if len(command) == 1:
             if command[0] == "run":
                 print("\nPort  Name      Character")
                 print("-"*26)
                 for port, player in enumerate(players):
                     if player:
-                        print("P{0}    {1: <9} {2}".format(
-                            port+1, player.name, players[port].get_random()))
+                        line = ansi_color("P{0}    {1: <9} {2}".format(
+                            port+1, player.name, players[port].get_random()), colors[port])
                     else:
-                        print("P"+str(port+1))
-                print("\nStage: {}".format(choice(stages)))
+                        line = ansi_color("P"+str(port+1), colors[port])
+                    print(line)
+                print(ansi_color("\nStage"), end=": ")
+                print(ansi_color(choice(stages), 1, 35))
             elif command[0] == "status":
                 status(players, lobby)
             elif command[0] in ("clear", "reset"):
