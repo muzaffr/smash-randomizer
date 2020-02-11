@@ -16,7 +16,7 @@ class Player:
 
     def get_random(self):
         pick = choice([x for x in self.characters if x not in self.queue])
-        if len(self.queue) >= self.freshness:
+        while len(self.queue) >= self.freshness:
             self.queue.pop(0)
         self.queue.append(pick)
         return pick
@@ -93,6 +93,14 @@ def main():
                 else:
                     print("Invalid port/lobby number.")
                 status(players, lobby)
+            elif command[0] == "freshness":
+                try:
+                    freshness = int(command[1])
+                    if freshness < 1 or freshness > 24:
+                        raise ValueError
+                    Player.freshness = freshness
+                except ValueError:
+                    print("freshness must be an integer from 1 to 24.")
             else:
                 print("Invalid command.")
 
@@ -119,6 +127,7 @@ def main():
                 if command[1][0] not in "PL" or command[2][0] not in "PL":
                     print("Invalid port/lobby number(s).")
                     continue
+                idx1 = -1
                 if command[1][0] == 'P':
                     try:
                         idx1 = int(command[1][1:])-1

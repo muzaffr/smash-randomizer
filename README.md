@@ -15,6 +15,7 @@ You can use the following commands to manage active and waiting players:
 `swap`  
 `status`  
 `clear`/`reset`  
+`freshness`  
 `exit`/`quit`  
 
 To randomize characters for all players, use:  
@@ -43,6 +44,9 @@ Port 4 swaps out for Lobby 2.
 
 `status`  
 List all the players (active and waiting).
+
+`freshness 12`  
+Set character freshness to 12.
 
 `clear`  
 Clear all the players.
