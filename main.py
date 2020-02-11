@@ -51,6 +51,8 @@ def main():
     with open('stages.txt') as f:
         stages = [line.rstrip('\n') for line in f]
     colors = [31, 34, 33, 32]
+    stage_queue = []
+    stage_freshness = 2*len(stages)//3
 
     while True:
         command = list(input(ansi_color("\nmelee@smash:$ ", 1, 36)).split())
@@ -61,11 +63,15 @@ def main():
                 for port, player in enumerate(players):
                     if player:
                         line = ansi_color("P{0}    {1: <9} {2}".format(
-                            port+1, player.name, players[port].get_random()), colors[port])
+                            port+1, player.name, players[port].get_random()), 1, colors[port])
                     else:
                         line = ansi_color("P"+str(port+1), colors[port])
                     print(line)
                 print(ansi_color("\nStage"), end=": ")
+                pick = choice([x for x in stages if x not in stage_queue])
+                while len(stage_queue) >= stage_freshness:
+                    stage_queue.pop(0)
+                stage_queue.append(pick)
                 print(ansi_color(choice(stages), 1, 35))
             elif command[0] == "status":
                 status(players, lobby)
